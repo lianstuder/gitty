@@ -35,3 +35,7 @@
 .vscode
 .idea
 .vs
+
+# Meson
+build/
+build-dir/
