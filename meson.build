@@ -12,11 +12,11 @@ project(
 # Dependencies
 libgit2 = dependency('libgit2')
 
-
 # Executable
 executable(
   'neutron', 
   'src/neutron.cpp',
   install : true,
+  install_dir : '/usr/local/bin',
   dependencies : [libgit2]
 )
