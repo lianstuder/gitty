@@ -16,32 +16,12 @@
 
 #include <iostream>
 
-#include <ftxui/component/screen_interactive.hpp>
-#include <ftxui/component/button.hpp>
+#include "repository.hpp"
 
-#include "document.hpp"
-// #include "core/repository.hpp"
-#include "components/stage.hpp"
-#include "components/commit.hpp"
+using namespace Neutron;
+using namespace std;
 
-int main(void)
-{
-    using namespace ftxui;
-
-    // Neutron::Repository repo = Neutron::Repository();
-
-    Neutron::Document document = Neutron::Document();
-    auto screen = ScreenInteractive::Fullscreen();
-
-    // Component initialisation
-    Neutron::Stage stage = Neutron::Stage();
-    Neutron::Commit commit = Neutron::Commit();
-
-    // Register components
-    document.registerComponent(&stage);
-    document.registerComponent(&commit);
-
-    screen.Loop(&document);
-
-    return EXIT_SUCCESS;
-}
+// Repository::~Repository()
+// {
+//     git_repository_free(repo);
+// }
