@@ -14,14 +14,33 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see https://github.com/lianstuder/neutron.
 
-#include <iostream>
+#include <string>
+
+#include <cppgit2/repository.hpp>
 
 #include "repository.hpp"
+#include "files.hpp"
 
-using namespace Neutron;
+using namespace cppgit2;
 using namespace std;
 
-// Repository::~Repository()
-// {
-//     git_repository_free(repo);
-// }
+void neutron::Repository::update_filelist()
+{
+    repo.for_each_status(
+        [&](string path, cppgit2::status::status_type status_flags) {
+            file f;
+            f.filename = path;
+            f.cb = ftxui::CheckBox();
+            switch (status_flags)
+            {
+            case cppgit2::status::status_type::index_modified:
+                f.status = modified;
+                break;
+
+            case cppgit2::status::status_type::ignored:
+                f.status = ignored;
+            }
+
+            files.push_back(f);
+        });
+}
