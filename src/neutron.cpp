@@ -15,6 +15,7 @@
 // along with this program.  If not, see https://github.com/lianstuder/neutron.
 
 #include <iostream>
+#include <thread>
 
 #include <ftxui/component/screen_interactive.hpp>
 #include <ftxui/component/button.hpp>
@@ -28,18 +29,27 @@ int main(void)
 {
     using namespace ftxui;
 
-    // Neutron::Repository repo = Neutron::Repository();
+    neutron::Repository repo = neutron::Repository();
 
-    Neutron::Document document = Neutron::Document();
+    neutron::Document document = neutron::Document();
     auto screen = ScreenInteractive::Fullscreen();
 
     // Component initialisation
-    Neutron::Stage stage = Neutron::Stage();
-    Neutron::Commit commit = Neutron::Commit();
+    neutron::Stage stage = neutron::Stage(&repo);
+    neutron::Commit commit = neutron::Commit(&repo);
 
     // Register components
     document.registerComponent(&stage);
     document.registerComponent(&commit);
+
+    std::thread update([&]() {
+        for (;;)
+        {
+            using namespace std::chrono_literals;
+            std::this_thread::sleep_for(1.0s);
+            repo.update_filelist();
+        }
+    });
 
     screen.Loop(&document);
 
