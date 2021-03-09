@@ -23,7 +23,7 @@
 
 namespace neutron
 {
-    enum class status
+    enum status
     {
         modified,
         ignored
