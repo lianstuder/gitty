@@ -34,7 +34,7 @@ namespace neutron
         Document()
         {
             Add(&container);
-        }
+        };
         inline ftxui::Element Render() override
         {
             return ftxui::vbox(
