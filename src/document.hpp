@@ -21,7 +21,9 @@
 #include <ftxui/component/component.hpp>
 #include <ftxui/component/container.hpp>
 
-namespace Neutron
+#include "core/repository.hpp"
+
+namespace neutron
 {
     class Document : public ftxui::Component
     {
