@@ -18,14 +18,17 @@
 
 #include <string>
 
-namespace Neutron
+#include <cppgit2/repository.hpp>
+
+namespace neutron
 {
     class Repository
     {
-    private:
     public:
-        Repository();
-        ~Repository();
+        static cppgit2::repository repo;
+        static std::vector<neutron::file> files;
+
+        void update_filelist();
     };
 
 }
