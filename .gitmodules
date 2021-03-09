@@ -1,3 +1,7 @@
 [submodule "FTXUI"]
 	path = subprojects/FTXUI
 	url = https://github.com/ArthurSonzogni/FTXUI
+
+[submodule "cppgit2"]
+	path = subprojects/cppgit2
+	url = https://github.com/p-ranav/cppgit2
