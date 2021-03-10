@@ -1,33 +1,24 @@
 #include <ftxui/component/button.hpp>
 #include <ftxui/component/container.hpp>
-#include <git2.h>
 
 #include "stage.hpp"
+#include "../core/repository.hpp"
 
-using namespace Neutron;
+using namespace neutron;
 using namespace ftxui;
 using namespace std;
 
-Stage::Stage()
+Stage::Stage(neutron::Repository *)
 {
     Add(&main_container);
     main_container.Add(&unstaged_container);
     main_container.Add(&staged_container);
 
-    unstaged_files.resize(5);
-    for (int i = 0; i < unstaged_files.size(); ++i)
+    for (file &f : repo.files)
     {
-        unstaged_files[i].label = (L"Checkbox " + to_wstring(i));
-        unstaged_files[i].state = true;
-        unstaged_container.Add(&unstaged_files[i]);
-    }
-
-    staged_files.resize(5);
-    for (int i = 0; i < staged_files.size(); ++i)
-    {
-        staged_files[i].label = (L"Checkbox " + to_wstring(i));
-        staged_files[i].state = true;
-        staged_container.Add(&staged_files[i]);
+        CheckBox cb = CheckBox();
+        cb.label = to_wstring(f.filename);
+        cb.on_change = stage_selected(&f);
     }
 }
 
@@ -42,4 +33,13 @@ Element Stage::Render()
             window(
                 text(L"Staged"),
                 staged_container.Render())));
+}
+
+auto Stage::stage_selected(neutron::file *f)
+{
+    return [&] {
+        f->status = added;
+        auto index = repo.repo.index();
+        index.add_entry_by_path(f->filename);
+    };
 }

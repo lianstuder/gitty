@@ -20,7 +20,9 @@
 #include <ftxui/component/container.hpp>
 #include <ftxui/component/input.hpp>
 
-namespace Neutron
+#include "../core/repository.hpp"
+
+namespace neutron
 {
     class Commit : public ftxui::Component
     {
@@ -30,7 +32,7 @@ namespace Neutron
         std::string commit_message;
 
     public:
-        Commit();
+        Commit(neutron::Repository *);
         ftxui::Element Render();
     };
 }

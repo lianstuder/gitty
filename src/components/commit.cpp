@@ -19,12 +19,13 @@
 #include <ftxui/component/input.hpp>
 
 #include "commit.hpp"
+#include "../core/repository.hpp"
 
-using namespace Neutron;
+using namespace neutron;
 using namespace ftxui;
 using namespace std;
 
-Commit::Commit()
+Commit::Commit(neutron::Repository *)
 {
     Add(&container);
     container.Add(&commit_message_input);
