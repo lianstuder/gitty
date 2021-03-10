@@ -26,7 +26,8 @@ namespace neutron
     enum status
     {
         modified,
-        ignored
+        ignored,
+        added
     };
 
     struct file
