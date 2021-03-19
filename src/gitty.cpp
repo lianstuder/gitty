@@ -1,4 +1,4 @@
-// Neutron Git TUI
+// gitty Git TUI
 // Copyright (C) 2021  Lian Studer
 
 // This program is free software: you can redistribute it and/or modify
@@ -12,44 +12,53 @@
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with this program.  If not, see https://github.com/lianstuder/neutron.
+// along with this program.  If not, see https://github.com/lianstuder/gitty.
 
 #include <iostream>
+#include <unistd.h>
 #include <thread>
-
 #include <ftxui/component/screen_interactive.hpp>
 #include <ftxui/component/button.hpp>
 
 #include "document.hpp"
-// #include "core/repository.hpp"
 #include "components/stage.hpp"
 #include "components/commit.hpp"
+#include "core/repository.hpp"
 
 int main(void)
 {
+    using namespace gitty;
     using namespace ftxui;
+    using namespace std;
 
-    neutron::Repository repo = neutron::Repository();
+    char cwd_buff[FILENAME_MAX];
+    getcwd(cwd_buff, FILENAME_MAX);
+    const string current_working_dir(cwd_buff);
 
-    neutron::Document document = neutron::Document();
+    cout << current_working_dir << endl;
+
+    Repository repository(current_working_dir, false);
+    repository.update();
+
+    Document document;
     auto screen = ScreenInteractive::Fullscreen();
 
     // Component initialisation
-    neutron::Stage stage = neutron::Stage(&repo);
-    neutron::Commit commit = neutron::Commit(&repo);
+    StageComponent stage;
+    CommitComponent commit;
 
     // Register components
     document.registerComponent(&stage);
     document.registerComponent(&commit);
 
-    std::thread update([&]() {
-        for (;;)
-        {
-            using namespace std::chrono_literals;
-            std::this_thread::sleep_for(1.0s);
-            repo.update_filelist();
-        }
-    });
+    // thread update([&]() {
+    //     for (;;)
+    //     {
+    //         using namespace std::chrono_literals;
+    //         this_thread::sleep_for(1.0s);
+    //         repository.update();
+    //     }
+    // });
 
     screen.Loop(&document);
 

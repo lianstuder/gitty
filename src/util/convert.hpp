@@ -17,33 +17,21 @@
 #pragma once
 
 #include <string>
-
-#include <ftxui/component/component.hpp>
-#include <ftxui/component/container.hpp>
-
-#include "core/repository.hpp"
+#include <codecvt>
+#include <locale>
 
 namespace gitty
 {
-    class Document : public ftxui::Component
-    {
-    private:
-        ftxui::Container container = ftxui::Container::Vertical();
+    using convert_t = std::codecvt_utf8<wchar_t>;
+    std::wstring_convert<convert_t, wchar_t> conv;
 
-    public:
-        Document()
-        {
-            Add(&container);
-        };
-        inline ftxui::Element Render() override
-        {
-            return ftxui::vbox(
-                ftxui::text(L"gitty") | ftxui::center | ftxui::bold,
-                ftxui::hbox(container.Render()));
-        };
-        inline void registerComponent(ftxui::Component *elem)
-        {
-            container.Add(elem);
-        };
-    };
+    inline std::string to_string(std::wstring wstr)
+    {
+        return conv.to_bytes(wstr);
+    }
+
+    inline std::wstring to_wstring(std::string str)
+    {
+        return conv.from_bytes(str);
+    }
 }

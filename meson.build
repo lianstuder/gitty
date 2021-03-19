@@ -1,5 +1,5 @@
 project(
-  'neutron', 
+  'gitty', 
   'cpp',
   version : '1.0.0',
   license : 'GPLv3',
@@ -29,8 +29,8 @@ message('CMake targets:\n - ' + '\n - '.join(libcppgit2.target_list()))
 
 # Executable
 executable(
-  'neutron', 
-  'src/neutron.cpp',
+  meson.project_name(),
+  'src/gitty.cpp',
   'src/components/stage.cpp',
   'src/components/commit.cpp',
   'src/core/repository.cpp',

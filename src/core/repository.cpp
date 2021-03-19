@@ -1,4 +1,4 @@
-// Neutron Git TUI
+// gitty Git TUI
 // Copyright (C) 2021  Lian Studer
 
 // This program is free software: you can redistribute it and/or modify
@@ -12,35 +12,57 @@
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with this program.  If not, see https://github.com/lianstuder/neutron.
+// along with this program.  If not, see https://github.com/lianstuder/gitty.
 
 #include <string>
-
 #include <cppgit2/repository.hpp>
+#include <ftxui/component/checkbox.hpp>
 
 #include "repository.hpp"
-#include "files.hpp"
+#include "../util/convert.hpp"
 
-using namespace cppgit2;
+using namespace gitty;
 using namespace std;
 
-void neutron::Repository::update_filelist()
+vector<file> Repository::files;
+cppgit2::repository Repository::repo;
+cppgit2::index Repository::idx;
+
+Repository::Repository(const string &path, bool is_bare)
 {
-    repo.for_each_status(
-        [&](string path, cppgit2::status::status_type status_flags) {
-            file f;
-            f.filename = path;
-            f.cb = ftxui::CheckBox();
-            switch (status_flags)
-            {
-            case cppgit2::status::status_type::index_modified:
-                f.status = modified;
-                break;
+    using namespace cppgit2;
+    repo = repository::init(path, is_bare);
+    idx = repo.index();
+}
 
-            case cppgit2::status::status_type::ignored:
-                f.status = ignored;
-            }
+void Repository::update()
+{
+    using namespace cppgit2;
+    vector<file> files_;
 
-            files.push_back(f);
-        });
+    // repo.for_each_status(
+    //     [&](const std::string &path, status::status_type status_flags) {
+    //         if ((status_flags & status::status_type::index_modified) !=
+    //             status::status_type::index_modified)
+    //         {
+    //             file new_file;
+    //             new_file.filename = to_wstring(path);
+    //             new_file.path = path;
+
+    //             if ((status_flags & status::status_type::ignored) !=
+    //                 status::status_type::ignored)
+    //                 new_file.status = ignored;
+    //             else
+    //                 new_file.status = modified;
+
+    //             files_.push_back(new_file);
+    //         }
+    //     });
+
+    updateFilesList(files_);
+}
+
+void Repository::updateFilesList(vector<file> files_)
+{
+    Repository::files = files_;
 }

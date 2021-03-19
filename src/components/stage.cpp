@@ -4,25 +4,41 @@
 #include "stage.hpp"
 #include "../core/repository.hpp"
 
-using namespace neutron;
+using namespace gitty;
 using namespace ftxui;
 using namespace std;
 
-Stage::Stage(neutron::Repository *)
+StageComponent::StageComponent()
 {
     Add(&main_container);
     main_container.Add(&unstaged_container);
     main_container.Add(&staged_container);
 
-    for (file &f : repo.files)
+    for (file &f : Repository::files)
     {
-        CheckBox cb = CheckBox();
-        cb.label = to_wstring(f.filename);
-        cb.on_change = stage_selected(&f);
+        if (f.status == modified)
+        {
+            CheckBox cb;
+            cb.label = f.filename;
+            cb.on_change = [&] {
+                if (cb.state)
+                {
+                    Repository::idx.add_entry_by_path(f.path);
+                    f.status = added;
+                    staged.push_back(text(f.filename));
+                }
+                else
+                {
+                    Repository::idx.remove_entry_by_path(f.path);
+                    f.status = modified;
+                }
+            };
+            unstaged_container.Add(&cb);
+        }
     }
 }
 
-Element Stage::Render()
+Element StageComponent::Render()
 {
     return window(
         text(L"Stage"),
@@ -32,14 +48,5 @@ Element Stage::Render()
                 unstaged_container.Render()),
             window(
                 text(L"Staged"),
-                staged_container.Render())));
-}
-
-auto Stage::stage_selected(neutron::file *f)
-{
-    return [&] {
-        f->status = added;
-        auto index = repo.repo.index();
-        index.add_entry_by_path(f->filename);
-    };
+                hbox(move(staged)))));
 }

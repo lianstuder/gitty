@@ -1,4 +1,4 @@
-// Neutron Git TUI
+// gitty Git TUI
 // Copyright (C) 2021  Lian Studer
 
 // This program is free software: you can redistribute it and/or modify
@@ -12,7 +12,7 @@
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with this program.  If not, see https://github.com/lianstuder/neutron.
+// along with this program.  If not, see https://github.com/lianstuder/gitty.
 
 #include <ftxui/component/component.hpp>
 #include <ftxui/component/container.hpp>
@@ -21,11 +21,11 @@
 #include "commit.hpp"
 #include "../core/repository.hpp"
 
-using namespace neutron;
+using namespace gitty;
 using namespace ftxui;
 using namespace std;
 
-Commit::Commit(neutron::Repository *)
+CommitComponent::CommitComponent()
 {
     Add(&container);
     container.Add(&commit_message_input);
@@ -35,7 +35,7 @@ Commit::Commit(neutron::Repository *)
     };
 }
 
-Element Commit::Render()
+Element CommitComponent::Render()
 {
     return container.Render();
 }

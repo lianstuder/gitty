@@ -11,25 +11,21 @@
 #include "../core/files.hpp"
 #include "../core/repository.hpp"
 
-namespace neutron
+namespace gitty
 {
-    class Stage : public ftxui::Component
+    class StageComponent : public ftxui::Component
     {
     private:
         ftxui::Container main_container = ftxui::Container::Vertical();
-
-        neutron::Repository repo;
 
         // Subcontainers
         ftxui::Container unstaged_container = ftxui::Container::Vertical();
         ftxui::Container staged_container = ftxui::Container::Vertical();
 
-        std::vector<neutron::file> unstaged_files;
-        std::vector<neutron::file> staged_files;
+        ftxui::Elements staged;
 
     public:
-        Stage(neutron::Repository *);
+        StageComponent();
         ftxui::Element Render();
-        auto stage_selected(neutron::file *);
     };
 }

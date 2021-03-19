@@ -1,4 +1,4 @@
-// Neutron Git TUI
+// gitty Git TUI
 // Copyright (C) 2021  Lian Studer
 
 // This program is free software: you can redistribute it and/or modify
@@ -12,7 +12,7 @@
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with this program.  If not, see https://github.com/lianstuder/neutron.
+// along with this program.  If not, see https://github.com/lianstuder/gitty.
 
 #pragma once
 
@@ -21,9 +21,9 @@
 #include <ftxui/component/checkbox.hpp>
 #include <cppgit2/repository.hpp>
 
-namespace neutron
+namespace gitty
 {
-    enum status
+    enum file_status
     {
         modified,
         ignored,
@@ -32,8 +32,8 @@ namespace neutron
 
     struct file
     {
-        std::string filename;
-        neutron::status status;
-        ftxui::CheckBox cb;
+        std::wstring filename;
+        std::string path;
+        gitty::file_status status;
     };
 }

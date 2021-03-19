@@ -1,4 +1,4 @@
-// Neutron Git TUI
+// gitty Git TUI
 // Copyright (C) 2021  Lian Studer
 
 // This program is free software: you can redistribute it and/or modify
@@ -12,23 +12,28 @@
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with this program.  If not, see https://github.com/lianstuder/neutron.
+// along with this program.  If not, see https://github.com/lianstuder/gitty.
 
 #pragma once
 
 #include <string>
-
 #include <cppgit2/repository.hpp>
 
-namespace neutron
+#include "files.hpp"
+
+namespace gitty
 {
     class Repository
     {
     public:
+        Repository(const std::string &path, bool is_bare);
+        void update();
+
+        static std::vector<gitty::file> files;
         static cppgit2::repository repo;
-        static std::vector<neutron::file> files;
+        static cppgit2::index idx;
 
-        void update_filelist();
+    private:
+        void updateFilesList(std::vector<gitty::file>);
     };
-
 }
