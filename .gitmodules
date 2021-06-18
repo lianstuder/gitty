@@ -1,3 +1,6 @@
 [submodule "vendor/FTXUI"]
 	path = vendor/FTXUI
 	url = https://github.com/ArthurSonzogni/FTXUI
+[submodule "vendor/libqgit2"]
+	path = vendor/libqgit2
+	url = https://github.com/KDE/libqgit2
