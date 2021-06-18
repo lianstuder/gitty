@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 add_subdirectory(vendor/FTXUI)
-
+add_subdirectory(vendor/libgit2)
 
 add_executable(gitty 
     src/gitty.cpp
@@ -17,6 +17,7 @@ target_link_libraries(gitty
     PRIVATE ftxui::screen
     PRIVATE ftxui::dom
     PRIVATE ftxui::component
+    PRIVATE libgit2
 )
 
 target_include_directories(gitty

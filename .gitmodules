@@ -1,3 +1,6 @@
 [submodule "vendor/FTXUI"]
 	path = vendor/FTXUI
 	url = https://github.com/ArthurSonzogni/FTXUI
+[submodule "vendor/libgit2"]
+	path = vendor/libgit2
+	url = https://github.com/libgit2/libgit2
