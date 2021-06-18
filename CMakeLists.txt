@@ -17,7 +17,7 @@ target_link_libraries(gitty
     PRIVATE ftxui::screen
     PRIVATE ftxui::dom
     PRIVATE ftxui::component
-    PRIVATE libgit2
+    PRIVATE git2
 )
 
 target_include_directories(gitty
