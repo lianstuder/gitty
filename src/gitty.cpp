@@ -1,24 +1,20 @@
-#include <iostream>
-#include "events/event_callback.h"
-#include "events/event.h"
+#include "debug/log.h"
 
-class Lit
-{
-public:
-    inline void hello()
-    {
-        std::cout << "Hello" << std::endl;
-    }
-};
+#include "events/event_dispatcher.h"
+#include "events/hotkey_event.h"
+#include "events/hotkey.h"
+
+using namespace gitty;
 
 int main(int argc, char const *argv[])
 {
-    Lit *lit = new Lit();
-    using namespace gitty;
+    while (1)
+    {
+        if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(VK_LSHIFT) && VK_A)
+        {
+            std::cout << "PRESSED HOTKEY" << std::endl;
+        }
+    }
 
-    EventCallback<Lit> *callback = new EventCallback(lit, &Lit::hello);
-    Event *e = new Event();
-    e->addListener(callback);
-    e->trigger();
     return EXIT_SUCCESS;
 }
