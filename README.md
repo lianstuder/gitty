@@ -1,9 +1,11 @@
-<p align="center">
+<!-- <p align="center">
   <a href="" rel="noopener">
  <img width=200px height=200px src="https://i.imgur.com/6wj0hh6.jpg" alt="Project logo"></a>
-</p>
+</p> -->
 
-<h3 align="center">Project Title</h3>
+<h3 align="center">gitty</h3>
+
+<!-- 
 
 <div align="center">
 
@@ -111,4 +113,4 @@ See also the list of [contributors](https://github.com/kylelobo/The-Documentatio
 
 - Hat tip to anyone whose code was used
 - Inspiration
-- References
+- References -->
