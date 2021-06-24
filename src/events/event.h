@@ -1,22 +1,12 @@
 #pragma once
-#include "event_callback.h"
-
-#include <vector>
+#include "event_type.h"
 
 namespace gitty
 {
     class Event
     {
     public:
-        Event();
-        ~Event();
-
-        void addListener(IEventCallback *action);
-        void removeListener(IEventCallback *action);
-        void trigger();
-
-    private:
-        typedef std::vector<IEventCallback *> CallbackArray;
-        CallbackArray actions;
+        virtual EventType GetInstanceEventType() const = 0;
+        virtual ~Event() = default;
     };
 } // namespace gitty
