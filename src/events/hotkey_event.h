@@ -1,10 +1,13 @@
 #pragma once
 #include "event.h"
-#include "event_type.h"
-#include "hotkey.h"
 
 namespace gitty
 {
+    enum class Hotkey
+    {
+        None = 0
+    };
+
     class HotkeyEvent : public Event
     {
     public:
