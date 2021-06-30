@@ -1,19 +1,18 @@
 #include "debug/log.h"
 
-#include "events/event_dispatcher.h"
+#include "events/event.h"
 #include "events/hotkey_event.h"
-#include "events/hotkey.h"
 
 using namespace gitty;
 
 int main(int argc, char const *argv[])
 {
-    while (1)
+    bool quit = false;
+
+    while (!quit)
     {
-        if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(VK_LSHIFT) && VK_A)
-        {
-            std::cout << "PRESSED HOTKEY" << std::endl;
-        }
+        std::cout << "Hello World!" << std::endl;
+        quit = true;
     }
 
     return EXIT_SUCCESS;
