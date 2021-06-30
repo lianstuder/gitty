@@ -8,22 +8,24 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # add_subdirectory(vendor/FTXUI)
 add_subdirectory(vendor/libgit2)
 
-add_executable(gitty 
+set(EXECUTABLE_FILE "gitty")
+add_executable(${EXECUTABLE_FILE}
     src/gitty.cpp
+    src/events/event.cpp
 )
 
-target_precompile_headers(gitty 
+target_precompile_headers(${EXECUTABLE_FILE}
     PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/gtpch.h
 )
 
-target_link_libraries(gitty
+target_link_libraries(${EXECUTABLE_FILE}
     # PRIVATE ftxui::screen
     # PRIVATE ftxui::dom
     # PRIVATE ftxui::component
     PRIVATE git2
 )
 
-target_include_directories(gitty
+target_include_directories(${EXECUTABLE_FILE}
     PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/src
     PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src
     PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/vendor/color-console/include
@@ -45,4 +47,4 @@ else()
     )
 endif()
 
-install(TARGETS gitty RUNTIME DESTINATION "bin")
+install(TARGETS ${EXECUTABLE_FILE} RUNTIME DESTINATION "bin")
